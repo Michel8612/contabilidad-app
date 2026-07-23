@@ -1,0 +1,11 @@
+# Build de buildozer (se genera en la nube, no se sube)
+.buildozer/
+bin/
+*.apk
+
+# Python
+__pycache__/
+*.pyc
+
+# Base de datos local
+*.db
