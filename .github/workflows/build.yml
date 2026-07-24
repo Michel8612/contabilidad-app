@@ -9,6 +9,9 @@ on:
 jobs:
   build-android:
     runs-on: ubuntu-latest
+    # Permite crear el Release con el APK
+    permissions:
+      contents: write
     steps:
       - name: Descargar el codigo
         uses: actions/checkout@v4
@@ -38,3 +41,11 @@ jobs:
           name: contabilidad-apk
           path: bin/*.apk
           if-no-files-found: error
+
+      - name: Publicar el APK como Release (descarga directa y reanudable)
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v1.0
+          name: Area de Contabilidad v1.0
+          body: APK de la app "Area de Contabilidad" (lista de compras tipo Excel). Descarga directa del .apk abajo.
+          files: bin/*.apk
