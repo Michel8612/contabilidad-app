@@ -8,7 +8,8 @@ on:
 
 jobs:
   build-android:
-    runs-on: ubuntu-latest
+    # Ubuntu 22.04 trae autoconf 2.71 (24.04 trae 2.72 y rompe la receta de libffi)
+    runs-on: ubuntu-22.04
     steps:
       - name: Descargar el codigo
         uses: actions/checkout@v4
@@ -31,14 +32,6 @@ jobs:
         run: |
           python -m pip install --upgrade pip setuptools wheel
           pip install buildozer cython==0.29.36
-
-      - name: Cache de buildozer (SDK/NDK)
-        uses: actions/cache@v4
-        with:
-          path: |
-            ~/.buildozer
-            .buildozer
-          key: buildozer-${{ runner.os }}-${{ hashFiles('buildozer.spec') }}
 
       - name: Compilar APK (debug)
         # 'yes |' acepta automaticamente las licencias del SDK de Android
